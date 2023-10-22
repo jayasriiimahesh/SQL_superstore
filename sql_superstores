@@ -1,0 +1,75 @@
+#1 select CustomerName and Segment
+select Customer_Name as Name, Segment as Customer_Segment
+from superstore.superstores_excel;
+
+#2 select all from superstore ordering customer_id by desc
+select *
+from superstore.superstores_excel
+order by Customer_ID desc;
+
+#3 which customer made high profit
+select Customer_name
+from superstore.superstores_excel
+where Profit=(select max(Profit) from superstore.superstores_excel);
+
+#4 select Top 5 customers who made profit
+select Customer_name
+from superstore.superstores_excel
+order by Profit desc
+limit 5;
+
+#5 calculate average of sales
+select avg(sales) as average_sales
+from superstore.superstores_excel;
+
+#6 Calculate count of segment according to customer name
+select Customer_name,Segment,count(Segment)
+from superstore.superstores_excel
+group by Customer_name,Segment;
+
+#7 select product_id and count of quantity ordering by quantity in descending order
+select Product_ID,count(Quantity) as market_fact 
+from superstore.superstores_excel
+group by Product_ID
+order by count(Quantity) desc;
+
+#8 select product_id based on category
+select Product_id
+from superstore.superstores_excel
+where Category in('Furniture','Office Supplies');
+
+#9 select product name, category,profit and segment limiting it by 5
+select Product_Name,Category,Profit,segment
+from superstore.superstores_excel
+Order by Profit Desc
+limit 5;
+
+#10 Calculate Profit margin
+select * from superstore.superstores_excel;
+select (sum(Profit) / sum(Sales))*100 as Profit_margin_percentage
+from superstore.superstores_excel;
+
+#11 Calculate Average discount percentage
+select (sum(Discount)/sum(Sales))*100 as average_discount_percentage
+from superstore.superstores_excel;
+
+#12 Third highest Sales
+select * from superstore.superstores_excel;
+select Sales,Customer_Name,Category,Profit from superstore.superstores_excel limit 2,1;
+
+#13  select ship_mode, get count of order id order it by order id
+select Ship_Mode,count(Order_ID) as Count_of_order
+from superstore.superstores_excel
+group by Ship_Mode
+order by count(Order_ID) asc;
+
+#14 select maximum sales based on product name and customer name
+select Product_Name,Customer_Name
+from superstore.superstores_excel
+where Sales=(select max(Sales) from superstore.superstores_excel);
+
+#15 select product name category,count of quantity order quantity in descending order
+select Product_Name,Category,Count(Quantity) as Count_of_quantity
+from superstore.superstores_excel
+group by Product_name,Category
+order by Count(Quantity) desc;
